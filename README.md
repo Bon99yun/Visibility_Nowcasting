@@ -310,3 +310,20 @@ Additional reporting includes accuracy, F1, probability ensembles, entropy/uncer
 - **GPU not detected**: start Docker with `--gpus all` and verify CUDA availability inside the container.
 - **Model loading errors**: ensure model artifact names match the pattern used by the utilities, e.g. `Analysis_code/save_model/xgb_optima/xgb_smote_seoul.pkl`.
 - **Large memory usage**: DataOn and CTGAN workflows can be memory intensive; run by region/fold and prefer the Docker/GPU environment.
+
+## Citation
+
+If you use this repository or the accompanying paper in your research, please cite:
+
+```bibtex
+@article{shin2026visibility,
+  title = {Visibility nowcasting in South Korea: a machine learning approach to class imbalance and distribution shift},
+  author = {Shin, Bong Gyun and Lee, Chan Sik and Suh, Hyesun},
+  journal = {Theoretical and Applied Climatology},
+  volume = {157},
+  article-number = {283},
+  year = {2026},
+  doi = {10.1007/s00704-026-06219-6},
+  url = {https://link.springer.com/article/10.1007/s00704-026-06219-6}
+}
+```
