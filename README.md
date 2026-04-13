@@ -4,7 +4,13 @@ Visibility Nowcasting is a research codebase for predicting Korean regional visi
 
 ## Publication
 
-This repository accompanies the published visibility-nowcasting research. The published project page is available at [Visibility Nowcasting](https://github.com/singbong/Visibility_Nowcasting).
+This repository accompanies the published visibility-nowcasting article:
+
+- **Paper:** [Visibility nowcasting in South Korea: a machine learning approach to class imbalance and distribution shift](https://link.springer.com/article/10.1007/s00704-026-06219-6)
+- **DOI:** [10.1007/s00704-026-06219-6](https://doi.org/10.1007/s00704-026-06219-6)
+- **Journal:** Theoretical and Applied Climatology, Volume 157, Article 283 (2026)
+- **Published:** 10 April 2026
+- **Code:** [GitHub repository](https://github.com/singbong/Visibility_Nowcasting)
 
 ## What this repository contains
 
