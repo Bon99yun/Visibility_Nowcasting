@@ -4,3 +4,4 @@ Analysis_code/3.sampled_data_analysis/images/*
 __pycache__/
 Analysis_code/save_model/*
 .envAnalysis_code/3.sampled_data_analysis/images.zip
+.omx/
