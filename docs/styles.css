@@ -163,7 +163,7 @@ p { color: var(--muted); font-size: 1.16rem; line-height: 1.82; }
 
 .project-figure { position: relative; width: 100%; margin: 0 auto 58px; }
 .project-figure:last-child { margin-bottom: 0; }
-.project-figure-wide { width: min(1180px, calc(100vw - 32px)); margin-left: 50%; transform: translateX(-50%); }
+.project-figure-wide { width: min(900px, calc(100vw - 48px)); margin-left: 50%; transform: translateX(-50%); }
 .project-figure img {
   width: 100%;
   margin: 0 auto;
@@ -173,10 +173,11 @@ p { color: var(--muted); font-size: 1.16rem; line-height: 1.82; }
   box-shadow: var(--shadow);
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
-.paper-table-figure { width: min(1040px, calc(100vw - 32px)); margin-left: 50%; transform: translateX(-50%); }
-.paper-table-figure-narrow { width: min(820px, calc(100vw - 32px)); }
+.paper-table-figure { width: min(760px, calc(100vw - 48px)); margin-left: 50%; transform: translateX(-50%); }
+.paper-table-figure-narrow { width: min(620px, calc(100vw - 48px)); }
 .paper-table-figure img { border-radius: 10px; }
-.figure-pair-primary { max-width: 620px; }
+#method-overview { width: min(620px, calc(100vw - 48px)); }
+.figure-pair-primary { max-width: 440px; }
 .project-figure figcaption {
   max-width: 920px;
   margin: 16px auto 0;
