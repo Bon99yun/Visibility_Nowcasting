@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Project page for Visibility nowcasting in South Korea, a machine-learning study of class imbalance and temporal distribution shift."
+    />
+    <meta name="theme-color" content="#eef7fb" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Visibility Nowcasting" />
+    <meta property="og:url" content="https://bon99yun.github.io/Visibility_Nowcasting/" />
+    <meta property="og:title" content="Visibility Nowcasting in South Korea" />
+    <meta
+      property="og:description"
+      content="A DoLQ-style project page for the published visibility-nowcasting paper in Theoretical and Applied Climatology."
+    />
+    <meta property="og:image" content="https://bon99yun.github.io/Visibility_Nowcasting/assets/og/visibility-nowcasting-og.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Visibility nowcasting overview card with South Korea, data augmentation, ensemble modeling, and distribution shift analysis."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Visibility Nowcasting in South Korea" />
+    <meta
+      name="twitter:description"
+      content="Machine-learning project page for low-visibility nowcasting, class imbalance, and distribution shift in six South Korean cities."
+    />
+    <meta name="twitter:image" content="https://bon99yun.github.io/Visibility_Nowcasting/assets/og/visibility-nowcasting-og.svg" />
+    <title>Visibility Nowcasting in South Korea | Project Page</title>
+    <link rel="canonical" href="https://bon99yun.github.io/Visibility_Nowcasting/" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="./assets/figure/framework.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="nav" aria-label="Project navigation">
+        <a class="brand" href="#top" aria-label="Visibility Nowcasting home">
+          <span class="brand-mark">VN</span>
+          <span>Visibility Nowcasting</span>
+        </a>
+        <nav class="nav-links" aria-label="Section links">
+          <a href="#abstract">Abstract</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#citation">Citation</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero section-pad" aria-labelledby="paper-title">
+          <div class="hero-copy">
+            <div class="eyebrow">
+              <span class="status-dot" aria-hidden="true"></span>
+              Theoretical and Applied Climatology · 2026
+            </div>
+            <h1 id="paper-title">
+              Visibility nowcasting in South Korea: a machine learning approach to class imbalance and distribution shift
+            </h1>
+            <div class="author-block" aria-label="Authors and publication details">
+              <p>
+                <strong>Bong Gyun Shin</strong><sup>1</sup>,
+                <strong>Chan Sik Lee</strong><sup>2</sup>,
+                <strong>Hyesun Suh</strong><sup>3</sup>
+              </p>
+              <p class="affiliations">
+                <sup>1</sup>Daejin University · <sup>2</sup>Soongsil University · <sup>3</sup>Daejin University
+              </p>
+              <p class="publication-line">
+                Volume 157, Article 283 · Published 10 April 2026 · DOI: 10.1007/s00704-026-06219-6
+              </p>
+            </div>
+
+            <div class="cta-row" aria-label="Project links">
+              <a class="button button-primary" href="https://doi.org/10.1007/s00704-026-06219-6" target="_blank" rel="noreferrer">Paper DOI ↗</a>
+              <a class="button" href="https://link.springer.com/article/10.1007/s00704-026-06219-6" target="_blank" rel="noreferrer">Springer ↗</a>
+              <a class="button" href="https://github.com/Bon99yun/Visibility_Nowcasting" target="_blank" rel="noreferrer">Code ↗</a>
+              <a class="button" href="#citation">BibTeX</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="abstract" class="paper-section" aria-labelledby="abstract-title">
+          <p class="section-label">Project summary</p>
+          <h2 id="abstract-title">Nowcasting rare low-visibility events from weather and air-quality observations</h2>
+          <p>
+            Atmospheric visibility affects transportation safety, aviation operations, and environmental risk management, but low-visibility events are rare and arise from intertwined meteorological and air-pollution conditions. This project studies visibility nowcasting for six major South Korean cities—Seoul, Busan, Incheon, Daegu, Daejeon, and Gwangju—using observed weather and air-quality data from 2018 to 2021.
+          </p>
+          <p>
+            The paper combines ASOS meteorological observations with AirKorea air-quality measurements, handles class imbalance in the 2018–2020 training period with SMOTENC and CTGAN-based augmentation, and evaluates five machine-learning and deep-learning model families with a CSI-focused objective. Its central finding is balanced: augmentation and ensembling help the modeling workflow, while performance drops on the 2021 test period reveal temporal distribution shift that needs explicit attention in operational nowcasting.
+          </p>
+        </section>
+
+        <section id="method" class="paper-section" aria-labelledby="method-title">
+          <p class="section-label">Method</p>
+          <h2 id="method-title">A four-stage pipeline for imbalanced visibility classes</h2>
+          <figure id="method-overview" class="project-figure project-figure-wide">
+            <img
+              src="./assets/figure/framework.png"
+              alt="Overall visibility-nowcasting framework from data collection and augmentation to model training, ensemble prediction, and distribution analysis."
+              decoding="async"
+            />
+            <figcaption>
+              <strong>Overall framework.</strong> The paper organizes the workflow into data collection and preprocessing, SMOTENC/CTGAN augmentation for minority visibility classes, model training with a two-stage ensemble, and distribution-shift analysis using SHAP-selected features and Wasserstein distance.
+            </figcaption>
+          </figure>
+
+          <div class="method-grid" aria-label="Method highlights">
+            <article>
+              <span class="card-kicker">Data</span>
+              <h3>ASOS + AirKorea</h3>
+              <p>Visibility is modeled for six South Korean city stations by merging KMA ASOS meteorological observations with AirKorea ground-based air-quality measurements.</p>
+            </article>
+            <article>
+              <span class="card-kicker">Imbalance</span>
+              <h3>SMOTENC and CTGAN</h3>
+              <p>The study augments rare low-visibility classes using methods suited to mixed tabular variables and synthetic tabular generation, rather than relying on the majority class distribution alone.</p>
+            </article>
+            <article>
+              <span class="card-kicker">Models</span>
+              <h3>Five model families</h3>
+              <p>XGBoost, LightGBM, ResNet-like, FT-Transformer, and DeepGBM are trained and compared across regions and augmented data settings.</p>
+            </article>
+          </div>
+
+          <figure id="study-area" class="project-figure figure-pair-primary">
+            <img
+              src="./assets/figure/selected_region.png"
+              alt="Map highlighting Seoul, Busan, Incheon, Daegu, Daejeon, and Gwangju as the six study cities."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              <strong>Study area.</strong> The project focuses on six major South Korean cities: Seoul, Busan, Incheon, Daegu, Daejeon, and Gwangju.
+            </figcaption>
+          </figure>
+
+          <figure id="two-stage-ensemble" class="project-figure">
+            <img
+              src="./assets/figure/two_stage_ensemble.png"
+              alt="Two-stage soft-voting ensemble diagram combining multiple optimized model probabilities."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              <strong>Two-stage ensemble.</strong> The final nowcasting workflow combines optimized model probabilities through soft voting to improve stability across model families and regional settings.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section id="results" class="paper-section" aria-labelledby="results-title">
+          <p class="section-label">Results and analysis</p>
+          <h2 id="results-title">CSI-focused evaluation and a distribution-shift explanation</h2>
+          <p>
+            Because rare low-visibility detection matters more than overall majority-class accuracy, the paper emphasizes the Critical Success Index (CSI). The accepted-paper figures show how augmentation choices affect best CSI values across models and cities, then use distribution diagnostics to explain why validation gains do not transfer uniformly to the 2021 test period.
+          </p>
+
+          <figure id="augmentation-csi" class="project-figure project-figure-wide">
+            <img
+              src="./assets/figure/augment_performance_plots/xgboost_resnet_like.png"
+              alt="CSI performance improvement from data augmentation for XGBoost and ResNet-like models across South Korean cities."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              <strong>Augmentation and CSI.</strong> The paper reports CSI changes by model and city to evaluate whether SMOTENC, CTGAN, or hybrid sampling improves low-visibility detection. The figure is presented as evidence of model- and city-dependent effects, not as a claim that one augmentation method universally dominates.
+            </figcaption>
+          </figure>
+
+          <div class="figure-grid" aria-label="Additional augmentation and distribution figures">
+            <figure class="project-figure compact-figure">
+              <img
+                src="./assets/figure/augment_performance_plots/lightgbm_resnet_like.png"
+                alt="Best CSI performance by augmentation method for LightGBM and ResNet-like models."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption><strong>Tree and neural baselines.</strong> Best CSI by augmentation setting for LightGBM and ResNet-like models.</figcaption>
+            </figure>
+            <figure class="project-figure compact-figure">
+              <img
+                src="./assets/figure/augment_performance_plots/deepgbm_ft_transformer.png"
+                alt="Best CSI performance by augmentation method for DeepGBM and FT-Transformer models."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption><strong>Deep tabular models.</strong> Best CSI by augmentation setting for DeepGBM and FT-Transformer.</figcaption>
+            </figure>
+          </div>
+
+          <figure id="distribution-diagnostics" class="project-figure project-figure-wide">
+            <img
+              src="./assets/figure/incheon_kde_plot.png"
+              alt="KDE plots comparing original and augmented RH and PM2.5 distributions for Incheon fold 1."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              <strong>Distribution diagnostics.</strong> For Incheon, the paper compares original and augmented distributions for influential variables such as relative humidity and PM2.5. The broader analysis uses SHAP to identify influential features and Wasserstein distance to quantify temporal distribution differences between training/validation and 2021 test data.
+            </figcaption>
+          </figure>
+
+          <div class="figure-grid figure-grid-three" aria-label="UMAP comparisons for Incheon augmentation methods">
+            <figure class="project-figure compact-figure">
+              <img
+                src="./assets/figure/umap_plots/smotenc_incheon_fold1_2018-2019.png"
+                alt="UMAP visualization for original and SMOTENC-augmented Incheon data in fold 1."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption><strong>SMOTENC.</strong> UMAP view of Incheon fold 1 augmentation.</figcaption>
+            </figure>
+            <figure class="project-figure compact-figure">
+              <img
+                src="./assets/figure/umap_plots/ctgan_10000_incheon_fold1_2018-2019.png"
+                alt="UMAP visualization for original and CTGAN-augmented Incheon data in fold 1."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption><strong>CTGAN.</strong> UMAP view of synthetic tabular samples for Incheon.</figcaption>
+            </figure>
+            <figure class="project-figure compact-figure">
+              <img
+                src="./assets/figure/umap_plots/smotenc_ctgan_10000_incheon_fold1_2018-2019.png"
+                alt="UMAP visualization for original and hybrid SMOTENC plus CTGAN augmented Incheon data in fold 1."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption><strong>Hybrid.</strong> UMAP view of SMOTENC followed by CTGAN augmentation.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section id="citation" class="section-pad citation" aria-labelledby="citation-title">
+          <p class="section-label">Citation</p>
+          <h2 id="citation-title">BibTeX</h2>
+          <p>
+            Please cite the published article when using this project page, codebase, or figures.
+          </p>
+          <div class="bibtex-card">
+            <button class="copy-bibtex" type="button" aria-label="Copy BibTeX citation">Copy BibTeX</button>
+            <pre><code id="bibtex-code">@article{shin2026visibility,
+  title   = {Visibility nowcasting in South Korea: a machine learning approach to class imbalance and distribution shift},
+  author  = {Shin, Bong Gyun and Lee, Chan Sik and Suh, Hyesun},
+  journal = {Theoretical and Applied Climatology},
+  volume  = {157},
+  pages   = {283},
+  year    = {2026},
+  doi     = {10.1007/s00704-026-06219-6},
+  url     = {https://doi.org/10.1007/s00704-026-06219-6}
+}</code></pre>
+            <p class="copy-status" aria-live="polite"></p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>Static project page for the published visibility-nowcasting article.</p>
+        <a href="#top">Back to top ↑</a>
+      </footer>
+      <a class="back-to-top-floating" href="#top" aria-label="Back to top">↑</a>
+    </div>
+
+    <div
+      class="image-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="image-modal-title"
+      aria-describedby="image-modal-caption image-modal-hint"
+    >
+      <div class="image-modal-controls" aria-label="Image zoom controls">
+        <button class="image-modal-control image-modal-zoom-out" type="button" aria-label="Zoom out">−</button>
+        <button class="image-modal-control image-modal-reset" type="button" aria-label="Reset zoom to fit">100%</button>
+        <button class="image-modal-control image-modal-zoom-in" type="button" aria-label="Zoom in">+</button>
+      </div>
+      <button class="image-modal-close" type="button" aria-label="Close expanded figure">×</button>
+      <figure class="image-modal-card">
+        <h2 id="image-modal-title" class="sr-only">Expanded figure preview</h2>
+        <p id="image-modal-hint" class="image-modal-hint">Scroll to zoom · Drag to pan · Use + / − / 0</p>
+        <div class="image-modal-viewport" aria-label="Zoomable image viewport">
+          <img class="image-modal-img" alt="" draggable="false" />
+        </div>
+        <figcaption id="image-modal-caption" class="image-modal-caption"></figcaption>
+      </figure>
+    </div>
+
+    <script>
+      (() => {
+        const modal = document.querySelector('.image-modal');
+        const viewport = document.querySelector('.image-modal-viewport');
+        const modalImg = document.querySelector('.image-modal-img');
+        const modalCaption = document.querySelector('.image-modal-caption');
+        const closeButton = document.querySelector('.image-modal-close');
+        const zoomInButton = document.querySelector('.image-modal-zoom-in');
+        const zoomOutButton = document.querySelector('.image-modal-zoom-out');
+        const resetButton = document.querySelector('.image-modal-reset');
+        const figures = document.querySelectorAll('.project-figure');
+        const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+        const copyBibtexButton = document.querySelector('.copy-bibtex');
+        const copyStatus = document.querySelector('.copy-status');
+        const bibtexCode = document.querySelector('#bibtex-code');
+        const focusableSelector = 'button, [href], img[tabindex], [tabindex]:not([tabindex="-1"])';
+        let lastTrigger = null;
+        let zoom = 1;
+        let isPanning = false;
+        let panStartX = 0;
+        let panStartY = 0;
+        let panScrollLeft = 0;
+        let panScrollTop = 0;
+        const minZoom = 1;
+        const maxZoom = 5;
+        const buttonZoomStep = 1.25;
+
+        const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+        const updateZoomControls = () => {
+          zoomOutButton.disabled = zoom <= minZoom + 0.001;
+          zoomInButton.disabled = zoom >= maxZoom - 0.001;
+          resetButton.textContent = `${Math.round(zoom * 100)}%`;
+          resetButton.disabled = zoom <= minZoom + 0.001;
+          viewport.classList.toggle('is-zoomed', zoom > minZoom + 0.001);
+          modalImg.style.width = `${zoom * 100}%`;
+        };
+
+        const resetZoom = () => {
+          zoom = minZoom;
+          modalImg.style.width = '100%';
+          viewport.scrollLeft = 0;
+          viewport.scrollTop = 0;
+          viewport.classList.remove('is-panning');
+          isPanning = false;
+          updateZoomControls();
+        };
+
+        const zoomAt = (nextZoom, originX, originY) => {
+          const previousZoom = zoom;
+          nextZoom = clamp(nextZoom, minZoom, maxZoom);
+          if (Math.abs(nextZoom - previousZoom) < 0.001) return;
+          const contentX = (viewport.scrollLeft + originX) / previousZoom;
+          const contentY = (viewport.scrollTop + originY) / previousZoom;
+          zoom = nextZoom;
+          updateZoomControls();
+          requestAnimationFrame(() => {
+            viewport.scrollLeft = contentX * zoom - originX;
+            viewport.scrollTop = contentY * zoom - originY;
+          });
+        };
+
+        const zoomFromViewportCenter = (factor) => {
+          zoomAt(zoom * factor, viewport.clientWidth / 2, viewport.clientHeight / 2);
+        };
+
+        const openModal = (figure) => {
+          const img = figure.querySelector('img');
+          const caption = figure.querySelector('figcaption');
+          if (!img) return;
+          lastTrigger = img;
+          resetZoom();
+          modalImg.src = img.currentSrc || img.src;
+          modalImg.alt = img.alt || 'Expanded figure';
+          modalCaption.textContent = caption ? caption.textContent.trim() : img.alt;
+          modal.classList.add('is-open');
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('modal-open');
+          requestAnimationFrame(() => {
+            resetZoom();
+            closeButton.focus({ preventScroll: true });
+          });
+        };
+
+        const closeModal = () => {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('modal-open');
+          modalImg.removeAttribute('src');
+          resetZoom();
+          if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+        };
+
+        figures.forEach((figure) => {
+          const img = figure.querySelector('img');
+          if (!img) return;
+          img.classList.add('zoomable-figure');
+          img.tabIndex = 0;
+          img.setAttribute('role', 'button');
+          img.setAttribute('aria-label', 'Click to open expanded preview');
+          img.addEventListener('click', () => openModal(figure));
+          img.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              openModal(figure);
+            }
+          });
+        });
+
+        closeButton.addEventListener('click', closeModal);
+        zoomInButton.addEventListener('click', () => zoomFromViewportCenter(buttonZoomStep));
+        zoomOutButton.addEventListener('click', () => zoomFromViewportCenter(1 / buttonZoomStep));
+        resetButton.addEventListener('click', resetZoom);
+
+        viewport.addEventListener('wheel', (event) => {
+          if (!modal.classList.contains('is-open')) return;
+          event.preventDefault();
+          const rect = viewport.getBoundingClientRect();
+          zoomAt(zoom * Math.exp(-event.deltaY * 0.0012), event.clientX - rect.left, event.clientY - rect.top);
+        }, { passive: false });
+
+        viewport.addEventListener('pointerdown', (event) => {
+          if (!modal.classList.contains('is-open') || zoom <= minZoom + 0.001) return;
+          isPanning = true;
+          panStartX = event.clientX;
+          panStartY = event.clientY;
+          panScrollLeft = viewport.scrollLeft;
+          panScrollTop = viewport.scrollTop;
+          viewport.classList.add('is-panning');
+          viewport.setPointerCapture(event.pointerId);
+        });
+
+        viewport.addEventListener('pointermove', (event) => {
+          if (!isPanning) return;
+          event.preventDefault();
+          viewport.scrollLeft = panScrollLeft - (event.clientX - panStartX);
+          viewport.scrollTop = panScrollTop - (event.clientY - panStartY);
+        });
+
+        const stopPanning = (event) => {
+          if (!isPanning) return;
+          isPanning = false;
+          viewport.classList.remove('is-panning');
+          if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+        };
+
+        viewport.addEventListener('pointerup', stopPanning);
+        viewport.addEventListener('pointercancel', stopPanning);
+        viewport.addEventListener('dblclick', (event) => {
+          if (!modal.classList.contains('is-open')) return;
+          const rect = viewport.getBoundingClientRect();
+          if (zoom > minZoom + 0.001) resetZoom();
+          else zoomAt(2, event.clientX - rect.left, event.clientY - rect.top);
+        });
+
+        const trapModalFocus = (event) => {
+          const focusable = Array.from(modal.querySelectorAll(focusableSelector))
+            .filter((element) => !element.disabled && element.offsetParent !== null);
+          if (!focusable.length) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        };
+
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (event) => {
+          if (!modal.classList.contains('is-open')) return;
+          if (event.key === 'Escape') closeModal();
+          else if (event.key === 'Tab') trapModalFocus(event);
+          else if (event.key === '+' || event.key === '=') {
+            event.preventDefault();
+            zoomFromViewportCenter(buttonZoomStep);
+          } else if (event.key === '-' || event.key === '_') {
+            event.preventDefault();
+            zoomFromViewportCenter(1 / buttonZoomStep);
+          } else if (event.key === '0') {
+            event.preventDefault();
+            resetZoom();
+          }
+        });
+
+        copyBibtexButton?.addEventListener('click', async () => {
+          if (!bibtexCode || !copyStatus) return;
+          const citation = bibtexCode.textContent.trim();
+          const markCopied = () => {
+            copyStatus.textContent = 'Copied.';
+            copyBibtexButton.textContent = 'Copied';
+            setTimeout(() => {
+              copyStatus.textContent = '';
+              copyBibtexButton.textContent = 'Copy BibTeX';
+            }, 1600);
+          };
+          try {
+            if (navigator.clipboard?.writeText) {
+              await navigator.clipboard.writeText(citation);
+            } else {
+              const textarea = document.createElement('textarea');
+              textarea.value = citation;
+              textarea.setAttribute('readonly', '');
+              textarea.style.position = 'fixed';
+              textarea.style.opacity = '0';
+              document.body.append(textarea);
+              textarea.select();
+              document.execCommand('copy');
+              textarea.remove();
+            }
+            markCopied();
+          } catch {
+            copyStatus.textContent = 'Copy failed. Select the text manually.';
+          }
+        });
+
+        const sectionTargets = Array.from(navLinks)
+          .map((link) => document.querySelector(link.getAttribute('href')))
+          .filter(Boolean);
+        const setActiveNav = () => {
+          const currentY = window.scrollY + 130;
+          let current = sectionTargets[0];
+          sectionTargets.forEach((section) => {
+            if (section.offsetTop <= currentY) current = section;
+          });
+          navLinks.forEach((link) => {
+            link.classList.toggle('is-active', link.getAttribute('href') === `#${current?.id}`);
+          });
+        };
+        window.addEventListener('scroll', setActiveNav, { passive: true });
+        window.addEventListener('load', setActiveNav);
+        setActiveNav();
+      })();
+    </script>
+  </body>
+</html>
