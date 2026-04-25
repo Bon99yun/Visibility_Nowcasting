@@ -143,7 +143,39 @@
           </figure>
 
           <p>
-            The reported pattern is deliberately nuanced. Augmentation can help rare-event detection, and ensembling can stabilize predictions, but the 2021 test period still exposes a temporal distribution shift. The page therefore keeps the diagnostic evidence next to the performance figure rather than presenting CSI as a standalone leaderboard.
+            The reported pattern is deliberately nuanced. Augmentation can help rare-event detection, and ensembling can stabilize predictions, but the 2021 test period still exposes a temporal distribution shift. The paper first makes that drop explicit by comparing each region's validation CSI with its held-out test CSI.
+          </p>
+
+          <figure id="table-8-validation-test" class="project-figure project-figure-wide paper-table-figure">
+            <img
+              src="./assets/figure/tables/table8_validation_test_csi.png"
+              loading="eager"
+              alt="Table 8 from the accepted paper comparing validation CSI, test CSI, performance gap, and percent change for six South Korean cities."
+              decoding="async"
+            />
+            <figcaption>
+              <strong>Table 8.</strong> The final ensemble loses CSI on the 2021 test period in every region. Seoul and Daegu show the largest drops, while Busan, Incheon, and Gwangju degrade more modestly.
+            </figcaption>
+          </figure>
+
+          <p>
+            To understand whether the drop comes from confusing reduced and normal visibility, the paper narrows the evaluation to Classes 1 and 2. This keeps the argument in the same order as the published Section 4.4: overall test degradation first, then the class-pair behavior that motivates the distribution-shift analysis.
+          </p>
+
+          <figure id="table-9-class12" class="project-figure project-figure-wide paper-table-figure">
+            <img
+              src="./assets/figure/tables/table9_class12_csi.png"
+              loading="eager"
+              alt="Table 9 from the accepted paper comparing Class 1 and Class 2 validation and test CSI across regions."
+              decoding="async"
+            />
+            <figcaption>
+              <strong>Table 9.</strong> When Classes 1 and 2 are evaluated as a two-class problem, Seoul, Daegu, and Daejeon again show the sharpest CSI declines, supporting the paper's focus on class-boundary instability.
+            </figcaption>
+          </figure>
+
+          <p>
+            The next step is to connect those performance changes to the feature space. The paper uses SHAP to identify influential variables and then measures how the distribution of relative humidity shifts between the training and test periods.
           </p>
 
           <figure id="distribution-diagnostics" class="project-figure project-figure-wide">
@@ -155,6 +187,18 @@
             />
             <figcaption>
               <strong>Distribution diagnostics.</strong> For Incheon, the paper compares original and augmented distributions for influential variables such as relative humidity and PM2.5. The broader analysis uses SHAP-selected features and Wasserstein distance to connect performance degradation with measurable train-test distribution differences.
+            </figcaption>
+          </figure>
+
+          <figure id="table-11-wasserstein" class="project-figure paper-table-figure paper-table-figure-narrow">
+            <img
+              src="./assets/figure/tables/table11_wasserstein_rh.png"
+              loading="eager"
+              alt="Table 11 from the accepted paper comparing RH Wasserstein Dbase, Dshift, and percent change by region."
+              decoding="async"
+            />
+            <figcaption>
+              <strong>Table 11.</strong> The RH Wasserstein analysis quantifies the paper's distribution-shift explanation by comparing Dbase and Dshift. In severe-degradation regions such as Seoul, Daegu, and Daejeon, D<sub>shift</sub> becomes smaller than D<sub>base</sub>, indicating that the Class 2 test distribution moved closer to the Class 1 training distribution.
             </figcaption>
           </figure>
         </section>

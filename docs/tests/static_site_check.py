@@ -89,19 +89,29 @@ def main() -> None:
         "10.1007/s00704-026-06219-6",
         "Theoretical and Applied Climatology",
         "Published 10 April 2026",
+        "Table 8",
+        "Table 9",
+        "Table 11",
+        "Dbase",
+        "Dshift",
     ]
     for term in required_terms:
         assert term in text, f"missing scientific/metadata term: {term}"
 
     figure_imgs = [attrs for tag, attrs in parser.tags if tag == "img" and attrs.get("src", "").startswith("./assets/figure/")]
-    assert len(figure_imgs) == 4, f"expected four curated DoLQ-style narrative figures, found {len(figure_imgs)} figure images"
+    assert len(figure_imgs) == 7, f"expected four narrative figures plus three required paper tables, found {len(figure_imgs)} figure images"
     expected_figure_sources = {
         "./assets/figure/framework.png",
         "./assets/figure/selected_region.png",
         "./assets/figure/augment_performance_plots/xgboost_resnet_like.png",
+        "./assets/figure/tables/table8_validation_test_csi.png",
+        "./assets/figure/tables/table9_class12_csi.png",
         "./assets/figure/incheon_kde_plot.png",
+        "./assets/figure/tables/table11_wasserstein_rh.png",
     }
-    assert {attrs.get("src") for attrs in figure_imgs} == expected_figure_sources, "curated figure set changed"
+    assert {attrs.get("src") for attrs in figure_imgs} == expected_figure_sources, "curated figure/table set changed"
+    figure_order = [attrs.get("src") for attrs in figure_imgs]
+    assert figure_order.index("./assets/figure/tables/table8_validation_test_csi.png") < figure_order.index("./assets/figure/tables/table9_class12_csi.png") < figure_order.index("./assets/figure/tables/table11_wasserstein_rh.png"), "required tables should follow the paper flow"
     for attrs in figure_imgs:
         assert attrs.get("alt", "").strip(), f"missing alt text for {attrs.get('src')}"
 
