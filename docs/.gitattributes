@@ -1,0 +1,3 @@
+# GitHub Pages does not dereference Git LFS pointers, so publish docs figures
+# as normal Git blobs even though repository-wide *.png files use LFS.
+assets/figure/**/*.png -filter -diff -merge -text

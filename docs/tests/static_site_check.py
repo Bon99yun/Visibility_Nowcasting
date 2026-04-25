@@ -8,9 +8,11 @@ from __future__ import annotations
 
 from html.parser import HTMLParser
 from pathlib import Path
+import subprocess
 from urllib.parse import urlparse
 
 DOCS = Path(__file__).resolve().parents[1]
+REPO = DOCS.parent
 INDEX = DOCS / "index.html"
 CSS = DOCS / "styles.css"
 
@@ -45,6 +47,24 @@ def local_path(value: str) -> Path | None:
         return None
     return (DOCS / parsed.path).resolve()
 
+
+
+def assert_png_is_publishable(path: Path) -> None:
+    png_signature = b"\x89PNG\r\n\x1a\n"
+    assert path.read_bytes().startswith(png_signature), f"local PNG is not a valid image: {path.relative_to(DOCS)}"
+
+    repo_relative_path = path.relative_to(REPO).as_posix()
+    blob = subprocess.run(
+        ["git", "-C", str(REPO), "cat-file", "-p", f":{repo_relative_path}"],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+    )
+    if blob.returncode == 0:
+        assert blob.stdout.startswith(png_signature), (
+            "tracked PNG would publish as a non-image blob, likely a Git LFS pointer: "
+            f"{repo_relative_path}"
+        )
 
 def main() -> None:
     assert INDEX.exists(), "index.html must exist"
@@ -90,11 +110,18 @@ def main() -> None:
           if path is not None:
               assert path.is_relative_to(DOCS), f"local path escapes docs: {value}"
               assert path.exists(), f"missing local asset referenced by {attr}: {value}"
+              if path.suffix.lower() == ".png":
+                  assert_png_is_publishable(path)
 
     external_hrefs = {attrs["href"] for tag, attrs in parser.tags if tag == "a" and attrs.get("href", "").startswith("https://")}
     assert "https://doi.org/10.1007/s00704-026-06219-6" in external_hrefs
-    assert "https://link.springer.com/article/10.1007/s00704-026-06219-6" in external_hrefs
     assert "https://github.com/Bon99yun/Visibility_Nowcasting" in external_hrefs
+
+    cta_labels = [attrs.get("href") for tag, attrs in parser.tags if tag == "a" and "button" in attrs.get("class", "")]
+    assert cta_labels[:2] == [
+        "https://doi.org/10.1007/s00704-026-06219-6",
+        "https://github.com/Bon99yun/Visibility_Nowcasting",
+    ], "hero CTA buttons should be Paper and Code only"
 
     assert '@media (max-width: 700px)' in css, "responsive mobile media query missing"
     assert "copy-bibtex" in INDEX.read_text(encoding="utf-8"), "BibTeX copy affordance missing"
