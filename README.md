@@ -6,6 +6,7 @@ Visibility Nowcasting is a research codebase for predicting Korean regional visi
 
 This repository accompanies the published visibility-nowcasting article:
 
+- **Project page:** [Visibility Nowcasting](https://bon99yun.github.io/Visibility_Nowcasting/)
 - **Paper:** [Visibility nowcasting in South Korea: a machine learning approach to class imbalance and distribution shift](https://link.springer.com/article/10.1007/s00704-026-06219-6)
 - **DOI:** [10.1007/s00704-026-06219-6](https://doi.org/10.1007/s00704-026-06219-6)
 - **Journal:** Theoretical and Applied Climatology, Volume 157, Article 283 (2026)
@@ -316,14 +317,20 @@ Additional reporting includes accuracy, F1, probability ensembles, entropy/uncer
 If you use this repository or the accompanying paper in your research, please cite:
 
 ```bibtex
-@article{shin2026visibility,
-  title = {Visibility nowcasting in South Korea: a machine learning approach to class imbalance and distribution shift},
-  author = {Shin, Bong Gyun and Lee, Chan Sik and Suh, Hyesun},
-  journal = {Theoretical and Applied Climatology},
-  volume = {157},
-  article-number = {283},
-  year = {2026},
-  doi = {10.1007/s00704-026-06219-6},
-  url = {https://link.springer.com/article/10.1007/s00704-026-06219-6}
+@Article{Shin2026,
+author="Shin, Bong Gyun
+and Lee, Chan Sik
+and Suh, Hyesun",
+title="Visibility nowcasting in South Korea: a machine learning approach to class imbalance and distribution shift",
+journal="Theoretical and Applied Climatology",
+year="2026",
+month="Apr",
+day="10",
+volume="157",
+number="5",
+pages="283",
+issn="1434-4483",
+doi="10.1007/s00704-026-06219-6",
+url="https://doi.org/10.1007/s00704-026-06219-6"
 }
 ```
