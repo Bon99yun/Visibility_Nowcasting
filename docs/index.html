@@ -108,7 +108,7 @@
             The study treats visibility nowcasting as a tabular time-series classification problem in which the minority low-visibility classes carry the operational risk. Instead of summarizing the pipeline as separate cards, the page follows the paper's sequence: build a regional observation table, address missing values and class imbalance, train machine-learning and deep-learning models, then examine why validation performance does not always transfer to the 2021 test period.
           </p>
           <p>
-            SMOTENC and CTGAN are used because the predictors mix meteorological variables, air-quality measurements, station information, and categorical visibility classes. The modeling stage compares XGBoost, LightGBM, ResNet-like, FT-Transformer, and DeepGBM families, while ensemble voting is used to combine optimized model probabilities without claiming that a single augmentation method universally dominates.
+            SMOTENC and CTGAN are used because the dataset combines meteorological, air-quality, temporal, and location-related variables, while augmentation targets the minority visibility classes. The modeling stage compares XGBoost, LightGBM, ResNet-like, FT-Transformer, and DeepGBM families, while ensemble voting is used to combine optimized model probabilities without claiming that a single augmentation method universally dominates.
           </p>
 
           <figure id="study-area" class="project-figure figure-pair-primary">
@@ -154,7 +154,7 @@
               decoding="async"
             />
             <figcaption>
-              <strong>Table 8.</strong> The final ensemble loses CSI on the 2021 test period in every region. Seoul and Daegu show the largest drops, while Busan, Incheon, and Gwangju degrade more modestly.
+              <strong>Table 8.</strong> The final ensemble loses CSI on the 2021 test period in every region. Seoul and Daegu show the largest drops, Daejeon also degrades substantially, while Busan, Incheon, and Gwangju decline more modestly.
             </figcaption>
           </figure>
 
@@ -175,7 +175,7 @@
           </figure>
 
           <p>
-            The next step is to connect those performance changes to the feature space. The paper uses SHAP to identify influential variables and then measures how the distribution of relative humidity shifts between the training and test periods.
+            The next step is to connect those performance changes to the feature space. The paper uses SHAP to identify influential variables and then measures how the distribution of relative humidity shifts between the training and test periods; the KDE figure below first shows the paper's synthetic-data fidelity check before the direct train-test shift evidence in Table 11.
           </p>
 
           <figure id="distribution-diagnostics" class="project-figure project-figure-wide">
@@ -186,7 +186,7 @@
               decoding="async"
             />
             <figcaption>
-              <strong>Distribution diagnostics.</strong> For Incheon, the paper compares original and augmented distributions for influential variables such as relative humidity and PM2.5. The broader analysis uses SHAP-selected features and Wasserstein distance to connect performance degradation with measurable train-test distribution differences.
+              <strong>Distribution diagnostics.</strong> This KDE plot evaluates synthetic-data fidelity for Incheon Fold 1 by comparing original and augmented distributions for relative humidity and PM2.5. The direct train-test distribution-shift evidence is then summarized by the RH Wasserstein analysis in Table 11.
             </figcaption>
           </figure>
 
@@ -201,6 +201,10 @@
               <strong>Table 11.</strong> The RH Wasserstein analysis quantifies the paper's distribution-shift explanation by comparing Dbase and Dshift. In severe-degradation regions such as Seoul, Daegu, and Daejeon, D<sub>shift</sub> becomes smaller than D<sub>base</sub>, indicating that the Class 2 test distribution moved closer to the Class 1 training distribution.
             </figcaption>
           </figure>
+
+          <p>
+            This supports the paper's interpretation that the learned Class 1–Class 2 boundary became less reliable when applied to the 2021 test distribution.
+          </p>
         </section>
 
         <section id="citation" class="section-pad citation" aria-labelledby="citation-title">
