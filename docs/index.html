@@ -286,24 +286,37 @@ url="https://doi.org/10.1007/s00704-026-06219-6"
         let panStartY = 0;
         let panScrollLeft = 0;
         let panScrollTop = 0;
+        let fitWidth = 0;
         const minZoom = 1;
         const maxZoom = 5;
         const buttonZoomStep = 1.25;
 
         const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
+        const computeFitWidth = () => {
+          const naturalWidth = modalImg.naturalWidth || viewport.clientWidth;
+          const naturalHeight = modalImg.naturalHeight || viewport.clientHeight;
+          if (!naturalWidth || !naturalHeight || !viewport.clientWidth || !viewport.clientHeight) {
+            return viewport.clientWidth || naturalWidth || 1;
+          }
+          const widthFit = viewport.clientWidth;
+          const heightFit = viewport.clientHeight * (naturalWidth / naturalHeight);
+          return Math.max(1, Math.min(naturalWidth, widthFit, heightFit));
+        };
+
         const updateZoomControls = () => {
+          if (!fitWidth) fitWidth = computeFitWidth();
           zoomOutButton.disabled = zoom <= minZoom + 0.001;
           zoomInButton.disabled = zoom >= maxZoom - 0.001;
           resetButton.textContent = `${Math.round(zoom * 100)}%`;
           resetButton.disabled = zoom <= minZoom + 0.001;
           viewport.classList.toggle('is-zoomed', zoom > minZoom + 0.001);
-          modalImg.style.width = `${zoom * 100}%`;
+          modalImg.style.width = `${fitWidth * zoom}px`;
         };
 
         const resetZoom = () => {
           zoom = minZoom;
-          modalImg.style.width = '100%';
+          fitWidth = computeFitWidth();
           viewport.scrollLeft = 0;
           viewport.scrollTop = 0;
           viewport.classList.remove('is-panning');
@@ -335,6 +348,7 @@ url="https://doi.org/10.1007/s00704-026-06219-6"
           if (!img) return;
           lastTrigger = img;
           resetZoom();
+          modalImg.onload = () => requestAnimationFrame(resetZoom);
           modalImg.src = img.currentSrc || img.src;
           modalImg.alt = img.alt || 'Expanded figure';
           modalCaption.textContent = caption ? caption.textContent.trim() : img.alt;
@@ -351,6 +365,7 @@ url="https://doi.org/10.1007/s00704-026-06219-6"
           modal.classList.remove('is-open');
           modal.setAttribute('aria-hidden', 'true');
           document.body.classList.remove('modal-open');
+          modalImg.onload = null;
           modalImg.removeAttribute('src');
           resetZoom();
           if (lastTrigger) lastTrigger.focus({ preventScroll: true });
