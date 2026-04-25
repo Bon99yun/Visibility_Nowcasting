@@ -94,9 +94,22 @@ def main() -> None:
         assert term in text, f"missing scientific/metadata term: {term}"
 
     figure_imgs = [attrs for tag, attrs in parser.tags if tag == "img" and attrs.get("src", "").startswith("./assets/figure/")]
-    assert len(figure_imgs) >= 8, f"expected rich figure usage, found {len(figure_imgs)} figure images"
+    assert len(figure_imgs) == 4, f"expected four curated DoLQ-style narrative figures, found {len(figure_imgs)} figure images"
+    expected_figure_sources = {
+        "./assets/figure/framework.png",
+        "./assets/figure/selected_region.png",
+        "./assets/figure/augment_performance_plots/xgboost_resnet_like.png",
+        "./assets/figure/incheon_kde_plot.png",
+    }
+    assert {attrs.get("src") for attrs in figure_imgs} == expected_figure_sources, "curated figure set changed"
     for attrs in figure_imgs:
         assert attrs.get("alt", "").strip(), f"missing alt text for {attrs.get('src')}"
+
+    index_text = INDEX.read_text(encoding="utf-8")
+    old_layout_tokens = ("method-grid", "figure-grid", "figure-grid-three", "compact-figure", "card-kicker")
+    for token in old_layout_tokens:
+        assert token not in index_text, f"old boxed/grid explanation layout still referenced: {token}"
+        assert token not in css, f"old boxed/grid explanation CSS still present: {token}"
 
     for tag, attrs in parser.tags:
         for attr in ("src", "href"):
@@ -117,7 +130,6 @@ def main() -> None:
     assert "https://doi.org/10.1007/s00704-026-06219-6" in external_hrefs
     assert "https://github.com/Bon99yun/Visibility_Nowcasting" in external_hrefs
 
-    index_text = INDEX.read_text(encoding="utf-8")
     assert "assets/og/visibility-nowcasting-og.svg" not in index_text, "removed custom SVG OG card should not be referenced"
     assert "https://bon99yun.github.io/Visibility_Nowcasting/assets/figure/framework.png" in index_text, "OG/Twitter image should use the framework figure"
 

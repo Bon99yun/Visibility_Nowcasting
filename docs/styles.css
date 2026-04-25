@@ -100,7 +100,7 @@ p { color: var(--muted); font-size: 1.16rem; line-height: 1.82; }
   line-height: 1.03;
   letter-spacing: -0.072em;
 }
-.eyebrow, .section-label {
+.eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -159,25 +159,7 @@ p { color: var(--muted); font-size: 1.16rem; line-height: 1.82; }
   letter-spacing: -0.045em;
 }
 .paper-section p, .citation > p { max-width: 900px; margin: 0 auto 18px; text-align: left; text-wrap: pretty; }
-.paper-section .section-label, .citation .section-label { display: flex; width: fit-content; margin: 0 auto; }
 
-.method-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin: 18px auto 58px;
-}
-.method-grid article {
-  min-height: 100%;
-  padding: 22px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.76);
-  box-shadow: 0 12px 34px rgba(24, 50, 63, 0.07);
-}
-.method-grid h3 { margin: 8px 0 10px; color: var(--text); font-size: 1.18rem; letter-spacing: -0.035em; }
-.method-grid p { margin: 0; font-size: 0.98rem; line-height: 1.62; }
-.card-kicker { color: var(--accent); font-family: var(--mono); font-size: 0.72rem; font-weight: 760; letter-spacing: 0.1em; text-transform: uppercase; }
 
 .project-figure { position: relative; width: 100%; margin: 0 auto 58px; }
 .project-figure:last-child { margin-bottom: 0; }
@@ -201,17 +183,6 @@ p { color: var(--muted); font-size: 1.16rem; line-height: 1.82; }
   text-align: left;
 }
 .project-figure figcaption strong { color: var(--text); font-weight: 780; }
-.figure-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-  width: min(1180px, calc(100vw - 32px));
-  margin: 0 0 58px 50%;
-  transform: translateX(-50%);
-}
-.figure-grid-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.compact-figure { margin-bottom: 0; }
-.compact-figure figcaption { font-size: 0.96rem; line-height: 1.58; }
 .project-figure::after {
   content: "⌕ Inspect";
   position: absolute;
@@ -415,10 +386,6 @@ p { color: var(--muted); font-size: 1.16rem; line-height: 1.82; }
   border: 0;
 }
 
-@media (max-width: 860px) {
-  .method-grid, .figure-grid, .figure-grid-three { grid-template-columns: 1fr; }
-}
-
 @media (max-width: 700px) {
   body { background-size: auto, auto, 56px 56px, 56px 56px, auto; }
   html { scroll-padding-top: 76px; }
@@ -434,7 +401,6 @@ p { color: var(--muted); font-size: 1.16rem; line-height: 1.82; }
   .project-figure { margin-bottom: 42px; }
   .project-figure::after { top: 10px; right: 10px; padding: 6px 9px; font-size: 0.74rem; opacity: 0.86; }
   .project-figure figcaption { font-size: 1.02rem; }
-  .method-grid { margin-bottom: 42px; }
   .footer { flex-direction: column; align-items: flex-start; }
   .back-to-top-floating { right: 14px; bottom: 14px; width: 42px; height: 42px; }
   .image-modal { padding: 18px; }

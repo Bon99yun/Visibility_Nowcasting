@@ -83,8 +83,7 @@
         </section>
 
         <section id="abstract" class="paper-section" aria-labelledby="abstract-title">
-          <p class="section-label">Project summary</p>
-          <h2 id="abstract-title">Nowcasting rare low-visibility events from weather and air-quality observations</h2>
+          <h2 id="abstract-title">Abstract</h2>
           <p>
             Atmospheric visibility affects transportation safety, aviation operations, and environmental risk management, but low-visibility events are rare and arise from intertwined meteorological and air-pollution conditions. This project studies visibility nowcasting for six major South Korean cities—Seoul, Busan, Incheon, Daegu, Daejeon, and Gwangju—using observed weather and air-quality data from 2018 to 2021.
           </p>
@@ -94,8 +93,7 @@
         </section>
 
         <section id="method" class="paper-section" aria-labelledby="method-title">
-          <p class="section-label">Method</p>
-          <h2 id="method-title">A four-stage pipeline for imbalanced visibility classes</h2>
+          <h2 id="method-title">Method</h2>
           <figure id="method-overview" class="project-figure project-figure-wide">
             <img
               src="./assets/figure/framework.png"
@@ -103,27 +101,15 @@
               decoding="async"
             />
             <figcaption>
-              <strong>Overall framework.</strong> The paper organizes the workflow into data collection and preprocessing, SMOTENC/CTGAN augmentation for minority visibility classes, model training with a two-stage ensemble, and distribution-shift analysis using SHAP-selected features and Wasserstein distance.
+              <strong>Overall framework.</strong> The workflow starts by merging KMA ASOS meteorological observations with AirKorea air-quality measurements, fills missing values, applies time-aware training splits, augments rare low-visibility classes, and evaluates the resulting models with a distribution-shift analysis.
             </figcaption>
           </figure>
-
-          <div class="method-grid" aria-label="Method highlights">
-            <article>
-              <span class="card-kicker">Data</span>
-              <h3>ASOS + AirKorea</h3>
-              <p>Visibility is modeled for six South Korean city stations by merging KMA ASOS meteorological observations with AirKorea ground-based air-quality measurements.</p>
-            </article>
-            <article>
-              <span class="card-kicker">Imbalance</span>
-              <h3>SMOTENC and CTGAN</h3>
-              <p>The study augments rare low-visibility classes using methods suited to mixed tabular variables and synthetic tabular generation, rather than relying on the majority class distribution alone.</p>
-            </article>
-            <article>
-              <span class="card-kicker">Models</span>
-              <h3>Five model families</h3>
-              <p>XGBoost, LightGBM, ResNet-like, FT-Transformer, and DeepGBM are trained and compared across regions and augmented data settings.</p>
-            </article>
-          </div>
+          <p>
+            The study treats visibility nowcasting as a tabular time-series classification problem in which the minority low-visibility classes carry the operational risk. Instead of summarizing the pipeline as separate cards, the page follows the paper's sequence: build a regional observation table, address missing values and class imbalance, train machine-learning and deep-learning models, then examine why validation performance does not always transfer to the 2021 test period.
+          </p>
+          <p>
+            SMOTENC and CTGAN are used because the predictors mix meteorological variables, air-quality measurements, station information, and categorical visibility classes. The modeling stage compares XGBoost, LightGBM, ResNet-like, FT-Transformer, and DeepGBM families, while ensemble voting is used to combine optimized model probabilities without claiming that a single augmentation method universally dominates.
+          </p>
 
           <figure id="study-area" class="project-figure figure-pair-primary">
             <img
@@ -133,28 +119,15 @@
               decoding="async"
             />
             <figcaption>
-              <strong>Study area.</strong> The project focuses on six major South Korean cities: Seoul, Busan, Incheon, Daegu, Daejeon, and Gwangju.
-            </figcaption>
-          </figure>
-
-          <figure id="two-stage-ensemble" class="project-figure">
-            <img
-              src="./assets/figure/two_stage_ensemble.png"
-              alt="Two-stage soft-voting ensemble diagram combining multiple optimized model probabilities."
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>
-              <strong>Two-stage ensemble.</strong> The final nowcasting workflow combines optimized model probabilities through soft voting to improve stability across model families and regional settings.
+              <strong>Study area.</strong> The nowcasting experiments focus on six major South Korean cities—Seoul, Busan, Incheon, Daegu, Daejeon, and Gwangju—where ASOS weather observations can be paired with nearby AirKorea air-quality measurements.
             </figcaption>
           </figure>
         </section>
 
         <section id="results" class="paper-section" aria-labelledby="results-title">
-          <p class="section-label">Results and analysis</p>
-          <h2 id="results-title">CSI-focused evaluation and a distribution-shift explanation</h2>
+          <h2 id="results-title">Results</h2>
           <p>
-            Because rare low-visibility detection matters more than overall majority-class accuracy, the paper emphasizes the Critical Success Index (CSI). The accepted-paper figures show how augmentation choices affect best CSI values across models and cities, then use distribution diagnostics to explain why validation gains do not transfer uniformly to the 2021 test period.
+            Because rare low-visibility detection matters more than majority-class accuracy, the paper emphasizes the Critical Success Index (CSI). The result figures are curated here to keep the page close to the DoLQ reading style: first the main performance signal, then the distribution-shift diagnosis that explains why cross-validation gains can weaken on a later test period.
           </p>
 
           <figure id="augmentation-csi" class="project-figure project-figure-wide">
@@ -165,30 +138,13 @@
               decoding="async"
             />
             <figcaption>
-              <strong>Augmentation and CSI.</strong> The paper reports CSI changes by model and city to evaluate whether SMOTENC, CTGAN, or hybrid sampling improves low-visibility detection. The figure is presented as evidence of model- and city-dependent effects, not as a claim that one augmentation method universally dominates.
+              <strong>CSI summary.</strong> The paper reports city- and model-dependent CSI changes after SMOTENC, CTGAN, and hybrid augmentation. This representative comparison shows the evaluation focus without turning the project page into a full catalog of every model-family plot.
             </figcaption>
           </figure>
 
-          <div class="figure-grid" aria-label="Additional augmentation and distribution figures">
-            <figure class="project-figure compact-figure">
-              <img
-                src="./assets/figure/augment_performance_plots/lightgbm_resnet_like.png"
-                alt="Best CSI performance by augmentation method for LightGBM and ResNet-like models."
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption><strong>Tree and neural baselines.</strong> Best CSI by augmentation setting for LightGBM and ResNet-like models.</figcaption>
-            </figure>
-            <figure class="project-figure compact-figure">
-              <img
-                src="./assets/figure/augment_performance_plots/deepgbm_ft_transformer.png"
-                alt="Best CSI performance by augmentation method for DeepGBM and FT-Transformer models."
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption><strong>Deep tabular models.</strong> Best CSI by augmentation setting for DeepGBM and FT-Transformer.</figcaption>
-            </figure>
-          </div>
+          <p>
+            The reported pattern is deliberately nuanced. Augmentation can help rare-event detection, and ensembling can stabilize predictions, but the 2021 test period still exposes a temporal distribution shift. The page therefore keeps the diagnostic evidence next to the performance figure rather than presenting CSI as a standalone leaderboard.
+          </p>
 
           <figure id="distribution-diagnostics" class="project-figure project-figure-wide">
             <img
@@ -198,43 +154,12 @@
               decoding="async"
             />
             <figcaption>
-              <strong>Distribution diagnostics.</strong> For Incheon, the paper compares original and augmented distributions for influential variables such as relative humidity and PM2.5. The broader analysis uses SHAP to identify influential features and Wasserstein distance to quantify temporal distribution differences between training/validation and 2021 test data.
+              <strong>Distribution diagnostics.</strong> For Incheon, the paper compares original and augmented distributions for influential variables such as relative humidity and PM2.5. The broader analysis uses SHAP-selected features and Wasserstein distance to connect performance degradation with measurable train-test distribution differences.
             </figcaption>
           </figure>
-
-          <div class="figure-grid figure-grid-three" aria-label="UMAP comparisons for Incheon augmentation methods">
-            <figure class="project-figure compact-figure">
-              <img
-                src="./assets/figure/umap_plots/smotenc_incheon_fold1_2018-2019.png"
-                alt="UMAP visualization for original and SMOTENC-augmented Incheon data in fold 1."
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption><strong>SMOTENC.</strong> UMAP view of Incheon fold 1 augmentation.</figcaption>
-            </figure>
-            <figure class="project-figure compact-figure">
-              <img
-                src="./assets/figure/umap_plots/ctgan_10000_incheon_fold1_2018-2019.png"
-                alt="UMAP visualization for original and CTGAN-augmented Incheon data in fold 1."
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption><strong>CTGAN.</strong> UMAP view of synthetic tabular samples for Incheon.</figcaption>
-            </figure>
-            <figure class="project-figure compact-figure">
-              <img
-                src="./assets/figure/umap_plots/smotenc_ctgan_10000_incheon_fold1_2018-2019.png"
-                alt="UMAP visualization for original and hybrid SMOTENC plus CTGAN augmented Incheon data in fold 1."
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption><strong>Hybrid.</strong> UMAP view of SMOTENC followed by CTGAN augmentation.</figcaption>
-            </figure>
-          </div>
         </section>
 
         <section id="citation" class="section-pad citation" aria-labelledby="citation-title">
-          <p class="section-label">Citation</p>
           <h2 id="citation-title">BibTeX</h2>
           <p>
             Please cite the published article when using this project page, codebase, or figures.
