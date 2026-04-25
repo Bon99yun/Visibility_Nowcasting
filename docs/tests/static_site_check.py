@@ -117,6 +117,10 @@ def main() -> None:
     assert "https://doi.org/10.1007/s00704-026-06219-6" in external_hrefs
     assert "https://github.com/Bon99yun/Visibility_Nowcasting" in external_hrefs
 
+    index_text = INDEX.read_text(encoding="utf-8")
+    assert "assets/og/visibility-nowcasting-og.svg" not in index_text, "removed custom SVG OG card should not be referenced"
+    assert "https://bon99yun.github.io/Visibility_Nowcasting/assets/figure/framework.png" in index_text, "OG/Twitter image should use the framework figure"
+
     cta_labels = [attrs.get("href") for tag, attrs in parser.tags if tag == "a" and "button" in attrs.get("class", "")]
     assert cta_labels[:2] == [
         "https://doi.org/10.1007/s00704-026-06219-6",
