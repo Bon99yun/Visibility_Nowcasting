@@ -173,8 +173,8 @@ p { color: var(--muted); font-size: 1.16rem; line-height: 1.82; }
   box-shadow: var(--shadow);
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
-.paper-table-figure { width: min(620px, calc(100vw - 56px)); margin-left: 50%; transform: translateX(-50%); }
-.paper-table-figure-narrow { width: min(520px, calc(100vw - 56px)); }
+.paper-table-figure { width: min(496px, calc(100vw - 56px)); margin-left: 50%; transform: translateX(-50%); }
+.paper-table-figure-narrow { width: min(416px, calc(100vw - 56px)); }
 .paper-table-figure img { border-radius: 10px; }
 #method-overview { width: min(620px, calc(100vw - 48px)); }
 .figure-pair-primary { max-width: 440px; }
