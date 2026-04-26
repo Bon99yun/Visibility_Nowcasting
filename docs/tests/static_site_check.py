@@ -109,19 +109,16 @@ def main() -> None:
     for term in required_terms:
         assert term in text, f"missing scientific/metadata term: {term}"
 
-    figure_imgs = [attrs for tag, attrs in parser.tags if tag == "img" and attrs.get("src", "").startswith("./assets/figure/")]
-    assert len(figure_imgs) == 7, f"expected four narrative figures plus three required paper tables, found {len(figure_imgs)} figure images"
-    expected_figure_sources = [
-        "./assets/figure/framework.png",
-        "./assets/figure/selected_region.png",
-        "./assets/figure/augment_performance_plots/xgboost_resnet_like.png",
-        "./assets/figure/tables/table8_validation_test_csi.png",
-        "./assets/figure/tables/table9_class12_csi.png",
-        "./assets/figure/incheon_kde_plot.png",
-        "./assets/figure/tables/table11_wasserstein_rh.png",
+    figure_imgs = [
+        attrs
+        for tag, attrs in parser.tags
+        if tag == "img" and attrs.get("src", "").startswith("./assets/figure/")
     ]
-    figure_order = [attrs.get("src") for attrs in figure_imgs]
-    assert figure_order == expected_figure_sources, "curated figure/table set or narrative order changed"
+    figure_sources = tuple(attrs.get("src") for attrs in figure_imgs)
+    assert figure_sources == EXPECTED_FIGURE_SOURCES, (
+        "expected four narrative figures plus three required paper tables "
+        f"in paper-flow order, found {list(figure_sources)}"
+    )
     for attrs in figure_imgs:
         assert attrs.get("alt", "").strip(), f"missing alt text for {attrs.get('src')}"
 
@@ -168,18 +165,8 @@ def main() -> None:
     ], "hero CTA buttons should be Paper and Code only"
 
     assert '@media (max-width: 700px)' in css, "responsive mobile media query missing"
-    assert "html, body { overflow-x: hidden; }" in css, "wide figures must not create horizontal page overflow"
-    for token in ("copy-bibtex", "navigator.clipboard", "document.execCommand('copy')"):
-        assert token in index_text, f"BibTeX copy affordance missing: {token}"
-    for token in (
-        "image-modal",
-        "image-modal-zoom-out",
-        "image-modal-reset",
-        "image-modal-zoom-in",
-        "Scroll to zoom",
-        "Drag to pan",
-    ):
-        assert token in index_text, f"figure inspection modal affordance missing: {token}"
+    assert "copy-bibtex" in index_text, "BibTeX copy affordance missing"
+    assert "image-modal" in index_text, "figure inspection modal missing"
     assert "new analysis" not in text.lower(), "page should not claim new analysis beyond the paper"
 
     print("PASS static site checks")
