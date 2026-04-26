@@ -109,16 +109,19 @@ def main() -> None:
     for term in required_terms:
         assert term in text, f"missing scientific/metadata term: {term}"
 
-    figure_imgs = [
-        attrs
-        for tag, attrs in parser.tags
-        if tag == "img" and attrs.get("src", "").startswith("./assets/figure/")
+    figure_imgs = [attrs for tag, attrs in parser.tags if tag == "img" and attrs.get("src", "").startswith("./assets/figure/")]
+    assert len(figure_imgs) == 7, f"expected four narrative figures plus three required paper tables, found {len(figure_imgs)} figure images"
+    expected_figure_sources = [
+        "./assets/figure/framework.png",
+        "./assets/figure/selected_region.png",
+        "./assets/figure/augment_performance_plots/xgboost_resnet_like.png",
+        "./assets/figure/tables/table8_validation_test_csi.png",
+        "./assets/figure/tables/table9_class12_csi.png",
+        "./assets/figure/incheon_kde_plot.png",
+        "./assets/figure/tables/table11_wasserstein_rh.png",
     ]
-    figure_sources = tuple(attrs.get("src") for attrs in figure_imgs)
-    assert figure_sources == EXPECTED_FIGURE_SOURCES, (
-        "expected four narrative figures plus three required paper tables "
-        f"in paper-flow order, found {list(figure_sources)}"
-    )
+    figure_order = [attrs.get("src") for attrs in figure_imgs]
+    assert figure_order == expected_figure_sources, "curated figure/table set or narrative order changed"
     for attrs in figure_imgs:
         assert attrs.get("alt", "").strip(), f"missing alt text for {attrs.get('src')}"
 
